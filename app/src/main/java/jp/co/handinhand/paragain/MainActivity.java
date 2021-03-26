@@ -4,6 +4,7 @@ package jp.co.handinhand.paragain;
 
 import android.accounts.Account;
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -22,51 +23,36 @@ import android.widget.Toast;
 
 import jp.co.handinhand.paragain.ui.MovieFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity<mTextViewShowUploads> extends AppCompatActivity {
 
-    private Button mBottunPasteUrl;
-    private Button mBottunUpload;
-    private TextView mTextViewShowUploads;
-    private EditText mEditTextFileName;
-    private ImageView mImageView;
-    private ProgressBar mProgressBar;
+        private Button mBottunPasteUrl;
+        private Button mBottunUpload;
+        private TextView mTextViewShowUploads;
+        private EditText mEditTextFileName;
+        private ImageView mImageView;
+        private ProgressBar mProgressBar;
 
-    private Uri mImageUri;
+        private Uri mImageUri;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_main);
 
-        mBottunPasteUrl = findViewById(R.id.button_paste_url);
-        mBottunUpload = findViewById(R.id.button_upload);
-        mTextViewShowUploads = findViewById(R.id.text_view_show_uploads);
-        mEditTextFileName = findViewById(R.id.edit_text_file_name);
-        mImageView = findViewById(R.id.image_view);
-        mProgressBar = findViewById(R.id.progress_bar);
-
-
-
-        mBottunPasteUrl.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        mBottunUpload.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            mBottunPasteUrl = findViewById(R.id.button_paste_url);
+            mBottunUpload = findViewById(R.id.button_upload);
+            mTextViewShowUploads = findViewById(R.id.text_view_show_uploads);
+            mEditTextFileName = findViewById(R.id.edit_text_file_name);
+            mImageView = findViewById(R.id.image_view);
+            mProgressBar = findViewById(R.id.progress_bar);
 
 
-            }
-        });
-        mTextViewShowUploads.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+            mTextViewShowUploads.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    openHomeFragment();
+                }
+            });
 
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -75,6 +61,9 @@ public class MainActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 new HomeFragment()).commit();
     }
+
+
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -104,6 +93,11 @@ public class MainActivity extends AppCompatActivity {
         ContentResolver cR = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
+    }
+
+    private void openHomeFragment(){
+        Intent intent = new Intent(this, HomeFragment.class);
+        startActivity(intent);
     }
 
 }
