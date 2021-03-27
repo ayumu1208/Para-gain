@@ -71,9 +71,14 @@ public class AddFragment extends Fragment{
 
         return view;
     }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+    }
 private void openHomeFragment(){
         Intent intent = new Intent(this,AddFragment.class)
-                startFragment(intent);
+                startActivity(intent);
 }
 
 
