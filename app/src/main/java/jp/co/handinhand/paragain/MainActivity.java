@@ -25,7 +25,7 @@ public class MainActivity<mTextViewShowUploads> extends AppCompatActivity {
 
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                new HomeFragment()).commit();
+                new MovieFragment()).commit();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 new AddFragment()).commit();
@@ -49,7 +49,7 @@ public class MainActivity<mTextViewShowUploads> extends AppCompatActivity {
 
                     switch (menuItem.getItemId()) {
                         case R.id.navigation_home:
-                            selectedFragment = new HomeFragment();
+                            selectedFragment = new MovieFragment();
                             break;
                         case R.id.navigation_account:
                             selectedFragment = new AccountFragment();

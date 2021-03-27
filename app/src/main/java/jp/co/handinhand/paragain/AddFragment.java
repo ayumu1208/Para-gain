@@ -30,10 +30,10 @@ public class AddFragment extends Fragment{
         buttonUpload.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
-                HomeFragment homeFragment = new HomeFragment();
+                MovieFragment movieFragment = new MovieFragment();
               FragmentManager manager = getFragmentManager();
               manager.beginTransaction()
-                      .replace(R.id.image_view_upload,homeFragment,homeFragment.getTag()).commit();
+                      .replace(R.id.image_view_upload, movieFragment, movieFragment.getTag()).commit();
           }
       });
     }
@@ -67,9 +67,10 @@ public class AddFragment extends Fragment{
       mTextViewShowUploads.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
-              openHomeFragment();
+              openMovieFragment();
           }
-      });
+      }
+
 
 
 
@@ -80,7 +81,7 @@ public class AddFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
 
     }
-private void openHomeFragment(){
+private void openMovieFragment(){
         Intent intent = new Intent(this,AddFragment.class)
                 startActivity(intent);
 }
