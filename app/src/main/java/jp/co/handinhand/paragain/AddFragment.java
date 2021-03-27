@@ -50,15 +50,19 @@ public class AddFragment extends Fragment{
     private Uri mImageUri;
 
     @Override
-    public View onCreateView(LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_add, container, false);
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_add, container, false);
         mBottunPasteUrl = view.findViewById(R.id.button_paste_url);
         mBottunUpload = view.findViewById(R.id.button_upload);
         mTextViewShowUploads = view.findViewById(R.id.text_view_show_uploads);
         mEditTextFileName = view.findViewById(R.id.edit_text_file_name);
         mImageView = view.findViewById(R.id.image_view);
         mProgressBar = view.findViewById(R.id.progress_bar);
+
+        return view}
+
+
 
       mTextViewShowUploads.setOnClickListener(new View.OnClickListener() {
           @Override
@@ -69,7 +73,7 @@ public class AddFragment extends Fragment{
 
 
 
-        return view;
+
     }
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
