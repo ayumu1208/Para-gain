@@ -56,9 +56,9 @@
         android:layout_alignBottom="@id/button_upload"
         android:layout_marginStart="26dp"
         android:layout_toEndOf="@id/button_upload"
+        android:gravity="center"
         android:text="Show Uploads"
-        android:textSize="16sp"
-        android:gravity="center"/>
+        android:textSize="16sp" />
 
 
 </RelativeLayout>
