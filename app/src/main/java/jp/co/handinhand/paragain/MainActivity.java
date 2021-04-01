@@ -4,10 +4,10 @@ package jp.co.handinhand.paragain;
 
 import android.content.ContentResolver;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.NonNull;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.webkit.MimeTypeMap;
@@ -48,7 +48,7 @@ public class MainActivity<mTextViewShowUploads> extends AppCompatActivity {
                     Fragment selectedFragment = null;
 
                     switch (menuItem.getItemId()) {
-                        case R.id.navigation_home:
+                        case R.id.navigation_movie:
                             selectedFragment = new MovieFragment();
                             break;
                         case R.id.navigation_account:
@@ -57,6 +57,8 @@ public class MainActivity<mTextViewShowUploads> extends AppCompatActivity {
                         case R.id.navigation_add:
                             selectedFragment = new AddFragment();
                             break;
+                        default:
+                            throw new IllegalStateException("Unexpected value: " + menuItem.getItemId());
                     }
 
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
