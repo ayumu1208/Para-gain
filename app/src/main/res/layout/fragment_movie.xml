@@ -12,27 +12,6 @@
 
     ]]>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/text_view_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Name"
-            android:textColor="@android:color/black"
-            android:textSize="20sp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"/>
-
-        <ImageView
-            android:id="@+id/image_view_upload"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"/>
-
-    </LinearLayout>
 
     <TextView
         android:id="@+id/text_home"
@@ -49,7 +28,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true" />
 
 
 </RelativeLayout>

@@ -30,40 +30,42 @@ public class MainActivity<mTextViewShowUploads> extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                 new AddFragment()).commit();
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                new AccountFragment()).commit();
+        showFragment(R.id.navigation_movie);
 
 
 
 
     }
 
+    public void showFragment(int itemId) {
+        Fragment selectedFragment = null;
+
+        switch (itemId) {
+            case R.id.navigation_movie:
+                selectedFragment = new MovieFragment();
+                break;
+            case R.id.navigation_account:
+                selectedFragment = new AccountFragment();
+                break;
+            case R.id.navigation_add:
+                selectedFragment = new AddFragment();
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + itemId);
+        }
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                selectedFragment).commit();
+    }
+
+
 
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
-                @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                    Fragment selectedFragment = null;
-
-                    switch (menuItem.getItemId()) {
-                        case R.id.navigation_movie:
-                            selectedFragment = new MovieFragment();
-                            break;
-                        case R.id.navigation_account:
-                            selectedFragment = new AccountFragment();
-                            break;
-                        case R.id.navigation_add:
-                            selectedFragment = new AddFragment();
-                            break;
-                        default:
-                            throw new IllegalStateException("Unexpected value: " + menuItem.getItemId());
-                    }
-
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                            selectedFragment).commit();
-
+                    showFragment(menuItem.getItemId());
                     return true;
                 }
             };

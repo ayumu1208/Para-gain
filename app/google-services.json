@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "20007623146",
+    "project_id": "paragain-9202f",
+    "storage_bucket": "paragain-9202f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:20007623146:android:b994b15e7166af38e9ba93",
+        "android_client_info": {
+          "package_name": "jp.co.handinhand.paragain"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "20007623146-uh8ha8lkgcdtkg7g954ct4ib4er2c254.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKeBSufDxe58oWLqyOBuOr3TBNID0KQM8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "20007623146-uh8ha8lkgcdtkg7g954ct4ib4er2c254.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

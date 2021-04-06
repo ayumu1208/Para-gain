@@ -12,7 +12,8 @@
     <ImageView
         android:id="@+id/logo_image"
         android:layout_width="150dp"
-        android:layout_height="150dp"/>
+        android:layout_height="150dp"
+        />
 
 
     <TextView
