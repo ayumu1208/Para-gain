@@ -1,5 +1,6 @@
 package jp.co.handinhand.paragain;
 
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -37,6 +39,7 @@ public class AddFragment extends Fragment {
     private LayoutInflater inflater;
     private ViewGroup container;
     private Bundle savedInstanceState;
+    private ImageView image_view;
 
     public AddFragment() {
 
@@ -126,11 +129,11 @@ public class AddFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK
                 && data != null && data.getData() != null) {
             mImageUri = data.getData();
+            image_view.setImageURI(mImageUri);
 
-            .with(getContext()).load(mImageUri).into(mImageView);
         }
     }
 
@@ -157,7 +160,8 @@ public class AddFragment extends Fragment {
             StorageReference fileReference = mStorageRef.child(System.currentTimeMillis()+"."
                     +getFileExtension(mImageUri));
 
-            mUploadTask=fileReference.putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            mUploadTask=fileReference.putFile(mImageUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                     Handler handler = new Handler();

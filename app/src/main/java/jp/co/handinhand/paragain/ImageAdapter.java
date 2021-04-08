@@ -16,7 +16,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
     private Context mContext;
     private List<Upload> mUplods;
 
-    public  ImageAdapter(Context context,List<Upload> uploads){
+    public  ImageAdapter(MovieFragment context, List<Upload> uploads){
         mContext= context;
         mUplods = uploads;
     }
@@ -34,6 +34,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
         holder.textViewName.setText(uploadCurrent.getName());
         with(mContext)
                 .load(uploadCurrent.getImageUrl())
+                .placeholder(R.mipmap.ic_launcher)
                 .centerCrop()
                 .into(holder.imageView);
 
