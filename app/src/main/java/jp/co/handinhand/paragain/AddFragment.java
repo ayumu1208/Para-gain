@@ -1,5 +1,6 @@
 package jp.co.handinhand.paragain;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -32,10 +33,13 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.RuntimePermissions;
 
+
+@RuntimePermissions
 public class AddFragment extends Fragment {
 
-    private static final int RESULT_OK =1;
     private LayoutInflater inflater;
     private ViewGroup container;
     private Bundle savedInstanceState;
@@ -119,7 +123,8 @@ public class AddFragment extends Fragment {
         });
 
     }
-    private void openFileChooser(){
+    @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+    void openFileChooser(){
         Intent intent = new Intent();
         intent.setType("image/*");
         startActivityForResult(intent,PICK_IMAGE_REQUEST);
