@@ -31,17 +31,15 @@ public class MovieFragment extends Fragment {
     private DatabaseReference mDatabaseRef;
     private List<Upload> mUploads;
 
-@Override
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_add, container, false);
+        View view = inflater.inflate(R.layout.fragment_movie, container, false);
 
-        mRecyclerview = view.findViewById(R.id.recycler_view);
+        mRecyclerview = view.findViewById(R.id.recyclerView);
         mRecyclerview.setHasFixedSize(true);
         mRecyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
 
         mProgressCircle = view.findViewById(R.id.progress_circle);
-
-        return view;
 
         mUploads = new ArrayList<>();
 
@@ -54,7 +52,7 @@ public class MovieFragment extends Fragment {
                     Upload upload = postSnapshot.getValue(Upload.class);
                     mUploads.add(upload);
                 }
-                mAdapter = new ImageAdapter(MovieFragment.this, mUploads);
+                mAdapter = new ImageAdapter(MovieFragment.this.getContext(), mUploads);
 
                 mRecyclerview.setAdapter(mAdapter);
                 mProgressCircle.setVisibility(View.INVISIBLE);
@@ -66,7 +64,7 @@ public class MovieFragment extends Fragment {
                 mProgressCircle.setVisibility(View.INVISIBLE);
             }
         });
+
+        return view;
     }
-
-
 }
