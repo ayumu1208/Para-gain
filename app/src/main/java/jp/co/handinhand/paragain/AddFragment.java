@@ -23,6 +23,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
@@ -127,6 +128,7 @@ public class AddFragment extends Fragment {
     void openFileChooser(){
         Intent intent = new Intent();
         intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent,PICK_IMAGE_REQUEST);
     }
 
@@ -137,8 +139,8 @@ public class AddFragment extends Fragment {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK
                 && data != null && data.getData() != null) {
             mImageUri = data.getData();
-            image_view.setImageURI(mImageUri);
 
+            Glide.with(getContext()).load(mImageUri).into(mImageView);
         }
     }
 
@@ -157,13 +159,14 @@ public class AddFragment extends Fragment {
     }
 
     private ContentResolver getContentResolver() {
+        return getContext().getContentResolver();
     }
 
 
-    private void uploadFile(){
-        if (mImageUri != null){
-            StorageReference fileReference = mStorageRef.child(System.currentTimeMillis()+"."
-                    +getFileExtension(mImageUri));
+    private void uploadFile() {
+        if (mImageUri != null) {
+            StorageReference fileReference = mStorageRef.child(System.currentTimeMillis() + "."
+                    + getFileExtension(mImageUri));
 
             mUploadTask=fileReference.putFile(mImageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -175,12 +178,12 @@ public class AddFragment extends Fragment {
                         public void run() {
                             mProgressBar.setProgress(0);
                         }
-                    },5000);
+                    }, 5000);
 
                     Toast.makeText(getContext(),
                             "Upload successful", Toast.LENGTH_LONG).show();
                     Upload upload = new Upload(mEditTextFileName.getText().toString().trim(),
-                            taskSnapshot.getDownloadUrl().toString());
+                            taskSnapshot.getUploadSessionUri().toString());
                     String uploadId = mDatabaseRef.push().getKey();
                     mDatabaseRef.child(uploadId).setValue(upload);
                 }
@@ -188,24 +191,21 @@ public class AddFragment extends Fragment {
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getContext(),e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
 
                         }
                     })
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100.0* taskSnapshot.getBytesTransferred()/taskSnapshot.getTotalByteCount());
+                            double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
                             mProgressBar.setProgress((int) progress);
                         }
                     });
-        }else{
-            Toast.makeText(getContext(),"No file selected",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getContext(), "No file selected", Toast.LENGTH_SHORT).show();
         }
-        private void openMovieFragment(){
-         Intent intent = new Intent(getContext(),MovieFragment.class);
-         startActivity(intent);
-        }
+
     }
 
 
