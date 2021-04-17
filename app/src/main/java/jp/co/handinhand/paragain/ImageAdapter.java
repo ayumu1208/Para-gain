@@ -1,6 +1,7 @@
 package jp.co.handinhand.paragain;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,9 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
     public  ImageAdapter(Context context, List<Upload> uploads){
         mContext= context;
         mUplods = uploads;
+
+        Log.e("ImageAdapter", "mUplods size: " + mUplods.size());
+
     }
 
     @NonNull

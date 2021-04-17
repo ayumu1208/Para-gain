@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +44,7 @@ public class MovieFragment extends Fragment {
 
         mUploads = new ArrayList<>();
 
-        mDatabaseRef = FirebaseDatabase.getInstance().getReference("uploads");
+        mDatabaseRef = FirebaseDatabase.getInstance().getReference("thumbnails");
 
         mDatabaseRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -56,6 +57,7 @@ public class MovieFragment extends Fragment {
 
                 mRecyclerview.setAdapter(mAdapter);
                 mProgressCircle.setVisibility(View.INVISIBLE);
+                Log.e("MovieFragment", "dataSnapshot children: " + dataSnapshot.getChildrenCount());
             }
 
             @Override

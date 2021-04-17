@@ -34,6 +34,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
+import java.util.Objects;
+
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
 
@@ -58,8 +60,8 @@ public class AddFragment extends Fragment {
         this.inflater = inflater;
         this.container = container;
         this.savedInstanceState = savedInstanceState;
-        mBottunChooseImage = view.findViewById(R.id.button_choose_image);
-        mBottunUpload = view.findViewById(R.id.button_upload);
+        mButtonChooseImage = view.findViewById(R.id.button_choose_image);
+        mButtonUpload = view.findViewById(R.id.button_upload);
         mTextViewShowUploads = view.findViewById(R.id.text_view_show_uploads);
         mEditTextFileName = view.findViewById(R.id.edit_text_file_name);
         mImageView = view.findViewById(R.id.image_view);
@@ -76,8 +78,8 @@ public class AddFragment extends Fragment {
 
     private static final int PICK_IMAGE_REQUEST = 1;
 
-    private Button mBottunChooseImage;
-    private Button mBottunUpload;
+    private Button mButtonChooseImage;
+    private Button mButtonUpload;
     private TextView mTextViewShowUploads;
     private EditText mEditTextFileName;
     private ImageView mImageView;
@@ -91,45 +93,43 @@ public class AddFragment extends Fragment {
     private StorageTask mUploadTask;
 
 
-
-
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mBottunChooseImage.setOnClickListener(new View.OnClickListener(){
+        mButtonChooseImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openFileChooser();
             }
         });
 
-        mTextViewShowUploads.setOnClickListener(new View.OnClickListener(){
+        mTextViewShowUploads.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openMovieFragment();
             }
         });
 
-        mBottunUpload.setOnClickListener(new View.OnClickListener() {
+        mButtonUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mUploadTask != null && mUploadTask.isInProgress()) {
-                    Toast.makeText(getContext(),"Upload in progress", Toast.LENGTH_SHORT).show();
-                }else{
+                if (mUploadTask != null && mUploadTask.isInProgress()) {
+                    Toast.makeText(getContext(), "Upload in progress", Toast.LENGTH_SHORT).show();
+                } else {
                     uploadFile();
                 }
             }
         });
 
     }
+
     @NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
-    void openFileChooser(){
+    void openFileChooser() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent,PICK_IMAGE_REQUEST);
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }
 
     @Override
@@ -140,19 +140,20 @@ public class AddFragment extends Fragment {
                 && data != null && data.getData() != null) {
             mImageUri = data.getData();
 
-            Glide.with(getContext()).load(mImageUri).into(mImageView);
+            Glide.with((getContext())).load(mImageUri).into(mImageView);
         }
     }
 
     private void openMovieFragment() {
         getActivity().getSupportFragmentManager().beginTransaction()
-                .add(new MovieFragment(),null)
+                .add(new MovieFragment(), null)
                 .commit();
 
         MainActivity activity = (MainActivity) getActivity();
         activity.showFragment(R.id.navigation_movie);
     }
-    private String getFileExtension(Uri uri){
+
+    private String getFileExtension(Uri uri) {
         ContentResolver cR = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
@@ -168,30 +169,30 @@ public class AddFragment extends Fragment {
             StorageReference fileReference = mStorageRef.child(System.currentTimeMillis() + "."
                     + getFileExtension(mImageUri));
 
-            mUploadTask=fileReference.putFile(mImageUri)
+            mUploadTask = fileReference.putFile(mImageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
                         @Override
-                        public void run() {
-                            mProgressBar.setProgress(0);
-                        }
-                    }, 5000);
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mProgressBar.setProgress(0);
+                                }
+                            }, 5000);
 
-                    Toast.makeText(getContext(),
-                            "Upload successful", Toast.LENGTH_LONG).show();
-                    Upload upload = new Upload(mEditTextFileName.getText().toString().trim(),
-                            taskSnapshot.getUploadSessionUri().toString());
-                    String uploadId = mDatabaseRef.push().getKey();
-                    mDatabaseRef.child(uploadId).setValue(upload);
-                }
-            })
+                            Toast.makeText(AddFragment.this.getContext(),
+                                    "Upload successful", Toast.LENGTH_LONG).show();
+                            Upload upload = new Upload(mEditTextFileName.getText().toString().trim(),
+                                    taskSnapshot.getUploadSessionUri().toString());
+                            String uploadId = mDatabaseRef.push().getKey();
+                            mDatabaseRef.child(uploadId).setValue(upload);
+                        }
+                    })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(AddFragment.this.getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
 
                         }
                     })
@@ -202,13 +203,13 @@ public class AddFragment extends Fragment {
                             mProgressBar.setProgress((int) progress);
                         }
                     });
+
         } else {
             Toast.makeText(getContext(), "No file selected", Toast.LENGTH_SHORT).show();
         }
 
+
     }
-
-
 }
 
 
