@@ -1,6 +1,8 @@
 package jp.co.handinhand.paragain;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +45,15 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
                 .placeholder(R.mipmap.ic_launcher)
                 .centerCrop()
                 .into(holder.imageView);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(uploadCurrent.getName()));
+                mContext.startActivity(intent);
+            }
+        });
 
     }
 

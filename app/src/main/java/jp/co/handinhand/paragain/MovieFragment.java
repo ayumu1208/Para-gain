@@ -38,7 +38,10 @@ public class MovieFragment extends Fragment {
 
         mRecyclerview = view.findViewById(R.id.recyclerView);
         mRecyclerview.setHasFixedSize(true);
-        mRecyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        manager.setReverseLayout(true);
+        manager.setStackFromEnd(true);
+        mRecyclerview.setLayoutManager(manager);
 
         mProgressCircle = view.findViewById(R.id.progress_circle);
 
@@ -62,7 +65,7 @@ public class MovieFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MovieFragment.this.getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
                 mProgressCircle.setVisibility(View.INVISIBLE);
             }
         });
