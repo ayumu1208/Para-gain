@@ -59,9 +59,11 @@ public class AccountFragment extends Fragment {
                 String phoneNumber = mPhoneNumber.getEditText().getText().toString();
                 String password = mPassword.getEditText().getText().toString();
 
-                UserHelper userHelper = new UserHelper();
 
-                reference.setValue("");
+                UserHelper userHelper = new UserHelper(username, email, phoneNumber, password);
+
+                reference.child(username).setValue(userHelper);
+
             }
         });
 
