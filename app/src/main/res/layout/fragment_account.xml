@@ -62,7 +62,7 @@
                android:layout_height="wrap_content"
                android:drawableLeft="@drawable/ic_username"
                android:drawablePadding="10dp"
-               android:text="User Nmae"/>
+               />
 
 
        </com.google.android.material.textfield.TextInputLayout>
@@ -80,7 +80,7 @@
                android:layout_height="wrap_content"
                android:drawableLeft="@drawable/ic_mail"
                android:drawablePadding="10dp"
-               android:text="000@gmail.com"/>
+               />
 
 
        </com.google.android.material.textfield.TextInputLayout>
@@ -97,7 +97,7 @@
                android:layout_height="wrap_content"
                android:drawableLeft="@drawable/ic_phonecall"
                android:drawablePadding="10dp"
-               android:text="000-00056"/>
+              />
 
 
        </com.google.android.material.textfield.TextInputLayout>
@@ -115,7 +115,7 @@
                android:layout_height="wrap_content"
                android:drawableLeft="@drawable/ic_password"
                android:drawablePadding="10dp"
-               android:text="aaabbbccc"/>
+               />
 
 
        </com.google.android.material.textfield.TextInputLayout>
